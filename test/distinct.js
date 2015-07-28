@@ -53,7 +53,9 @@ describe('distinct', function () {
       baz: '239k'
     }]);
     var expected = {
-      baz: '01239aghks'
+      baz: '01239aghks',
+      foo: '289ajsx',
+      hoge: '128dhls'
     };
     assert.deepEqual(actual, expected, 'case 3');
   });
