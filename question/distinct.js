@@ -15,6 +15,47 @@
 //   hoge: 'abe'
 // }
 // を返却する。
+
+var CONNECTOR = '___';
+
 module.exports = function (array) {
+
+  var duplicateKeys = array.map(function(object) {
+    return Object.keys(object);
+  })
+  // flatten
+  .reduce(function(a, b) {
+    return a.concat(b);
+  }, [])
+  // 重複のみをfilter
+  .filter(function(key, i, keys) {
+    return keys.indexOf(key) === i && i !== keys.lastIndexOf(key);
+  });
+
+  var resultObject = array.reduce(function(prevObject, currentObject) {
+    Object.keys(currentObject).forEach(function(key) {
+      if (duplicateKeys.indexOf(key) !== -1) {
+        if (!prevObject[key]) {
+          prevObject[key] = currentObject[key];
+        } else {
+          prevObject[key] += CONNECTOR + currentObject[key];
+        }
+      }
+    });
+    return prevObject;
+  }, {});
+
+  Object.keys(resultObject).forEach(function(key) {
+    resultObject[key] = resultObject[key].split(CONNECTOR)
+      .join('')
+      .split('')
+      .filter(function(str, i, array) {
+        return array.indexOf(str) === i;
+      })
+      .sort()
+      .join('');
+  });
+
+  return resultObject;
 
 };
