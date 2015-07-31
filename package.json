@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "description": "JavaScript Training!",
   "scripts": {
-    "test": "mocha --require intelli-espower-loader test/*.js",
+    "tt": "mocha --require intelli-espower-loader",
+    "test": "npm run tt -- test/*.js",
     "tdd": "mocha --require intelli-espower-loader test/*.js --watch question/*.js"
   },
   "repository": {
