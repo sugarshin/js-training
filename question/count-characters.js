@@ -3,10 +3,8 @@
 // 記号は計上せず、大文字がある場合は小文字として同じアルファベットに計上します。
 module.exports = function (string) {
   var stringArray = string.toLowerCase().split('');
-  var result = {};
-
   return stringArray.filter(function(str) {
-    if (!/[^a-z]/.test(str)) {
+    if (/[a-z]/.test(str)) {
       return str;
     }
   }).reduce(function(result, current) {
@@ -16,5 +14,5 @@ module.exports = function (string) {
       result[current] += 1;
     }
     return result;
-  }, result);
+  }, {});
 };
