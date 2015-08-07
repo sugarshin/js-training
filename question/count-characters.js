@@ -4,9 +4,7 @@
 module.exports = function (string) {
   var stringArray = string.toLowerCase().split('');
   return stringArray.filter(function(str) {
-    if (/[a-z]/.test(str)) {
-      return str;
-    }
+    return /[a-z]/.test(str);
   }).reduce(function(result, current) {
     if (!result[current]) {
       result[current] = 1;
