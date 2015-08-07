@@ -16,22 +16,19 @@
 // }
 // を返却する。
 
-var getKeys = Object.keys;
-
 module.exports = function (array) {
-  var arrayLength = array.length;
   var keysCount = getKeysCount(array);
 
   objectForEach(keysCount, function(key, val) {
-    if (val !== arrayLength) {
+    if (val !== array.length) {
       delete keysCount[key];
     }
   });
 
-  var duplicateKeys = getKeys(keysCount);
+  var duplicateKeys = Object.keys(keysCount);
 
   var resultObject = array.reduce(function(prevObject, currentObject) {
-    getKeys(currentObject).forEach(function(key) {
+    Object.keys(currentObject).forEach(function(key) {
       if (duplicateKeys.indexOf(key) !== -1) {
         if (!prevObject[key]) {
           prevObject[key] = '' + currentObject[key];
@@ -43,7 +40,7 @@ module.exports = function (array) {
     return prevObject;
   }, {});
 
-  getKeys(resultObject).forEach(function(key) {
+  Object.keys(resultObject).forEach(function(key) {
     resultObject[key] = resultObject[key].split('')
       .filter(function(str, i, array) {
         return array.indexOf(str) === i;
@@ -57,7 +54,7 @@ module.exports = function (array) {
 };
 
 function objectForEach(object, callback) {
-  getKeys(object).forEach(function (key, i) {
+  Object.keys(object).forEach(function (key, i) {
     callback(key, object[key], i, object);
   });
 }
