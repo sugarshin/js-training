@@ -4,11 +4,9 @@
 // を返す。ただし、カンマ、セミコロンなどの特殊文字はカウントに含まないものとする。
 module.exports = function (string) {
   var charactors = string.split('').filter(function(str) {
-    if (!str.match(/[^a-z]/gi) && str !== ' ') {
-      return str;
-    }
+    return /\w/.test(str);
   }).length;
-  var words = string.split(' ').length;
+  var words = string.split(/\s+/).length;
 
   return {charactors: charactors, words: words};
 };
