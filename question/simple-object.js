@@ -9,94 +9,41 @@
 //  key2: "String"
 //}
 
-var _result = {};
+module.exports = function simpleObject(object, _ret) {
+  var ret = _ret || {};
 
-module.exports = function simpleObject(object) {
   objectForEach(object, function(key, val) {
-    _result[key] = val;
-    if (isObject(val)) {
-      val = convert(val);
-      if (isObject(val)) {
-        simpleObject(val);
-      } else {
-        _result[key] = val;
-      }
+    if (isConvertTarget(val)) {
+      ret[key] = convert(val);
+    } else if (isObject(val)) {
+      ret[key] = {};
+      simpleObject(val, ret[key]);
     } else if (Array.isArray(val)) {
+      ret[key] = [];
       val.forEach(function(el, i) {
         if (isObject(el)) {
-          el = convert(el);
-          if (isObject(el)) {
-            simpleObject(el);
-          }
+          ret[key][i] = {};
+          simpleObject(el, ret[key][i]);
+        } else {
+          ret[key][i] = el;
         }
-        _result[key][i] = el;
       });
     } else {
-      _result[key] = val;
+      ret[key] = val;
     }
   });
-  // console.log(object)
-  return _result;
-  // objectForEach(object, function(key, i) {
-  //   var value = object[key];
-  //   if (Array.isArray(value)) {
-  //     value.forEach(function(el, i) {
-  //       if (isObject(el)) {
-  //         simpleObject(el);
-  //       }
-  //     });
-  //   } else {
-  //     if (isObject(value)) {
-  //       objectForEach(value, function(k, i) {
-  //         if (k === 'N' || k === 'S') {
-  //           object[key] = (isNaN(val[k])) ? val[k] : +val[k];
-  //         }
-  //       });
-  //     }
-  //   }
-  // });
-  // return object;
+  return ret;
 };
 
 function convert(object) {
   var key = Object.keys(object)[0];
   var val = object[key];
-  if (key === 'N' || key === 'S') {
-    object = (isNaN(+val)) ? val : +val;
-    // console.log(object)
-  }
-  return object;
+  return (isNaN(+val)) ? val : +val;
 }
 
-// function simplify(object) {
-//   objectForEach(object, function(key, i) {
-//     var val = object[key];
-//     objectForEach(val, function(k, i) {
-//       if (k === 'N' || k === 'S') {
-//         object[key] = (isNaN(val[k])) ? val[k] : +val[k];
-//       }
-//     });
-//   });
-//   return object;
-// }
-
-function simplify(object) {
-  objectForEach(object, function(key, val) {
-    if (isObject(val)) {
-      objectForEach(val, function(k, v) {
-        if (k === 'N' || k === 'S') {
-          val = (isNaN(+v)) ? v : +v;
-        }
-      });
-    } else if (Array.isArray(val)) {
-      val.forEach(function(el, i) {
-        if (isObject(el)) {
-          simplify(el);
-        }
-      });
-    }
-  });
-  return object;
+function isConvertTarget(value) {
+  var keys = Object.keys(value);
+  return isObject(value) && keys.length === 1 && (keys[0] === 'N' || keys[0] === 'S');
 }
 
 function objectForEach(object, callback) {
@@ -108,5 +55,6 @@ function objectForEach(object, callback) {
 function isObject(value) {
   return (value !== null &&
           typeof value !== 'undefined' &&
-          Object(value) === value);
+          Object(value) === value &&
+          !Array.isArray(value));
 }
