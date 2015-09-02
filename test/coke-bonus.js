@@ -21,7 +21,7 @@ describe('coke-bonus', function () {
 
   it('return total coke count', function () {
     var actual   = func(100);
-    var expected = 132;
-    assert.deepEqual(actual, expected, 'case 2');
+    var expected = 133;
+    assert.deepEqual(actual, expected, 'case 3');
   });
 });
