@@ -3,8 +3,7 @@
   "private": true,
   "description": "JavaScript Training!",
   "scripts": {
-    "tt": "mocha --require intelli-espower-loader",
-    "test": "npm run tt -- test/*.js",
+    "test": "mocha --require intelli-espower-loader test/*.js",
     "tdd": "mocha --require intelli-espower-loader test/*.js --watch question/*.js"
   },
   "repository": {
