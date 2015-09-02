@@ -1,7 +1,6 @@
 {
   "name": "js-training",
   "private": true,
-  "version": "0.0.0",
   "description": "JavaScript Training!",
   "scripts": {
     "tt": "mocha --require intelli-espower-loader",
@@ -10,18 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1000ch/js-training.git"
+    "url": "git+https://github.com/sugarshin/js-training.git"
   },
-  "author": "1000ch",
+  "author": "sugarshin",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/1000ch/js-training/issues"
-  },
-  "homepage": "https://github.com/1000ch/js-training#readme",
   "devDependencies": {
-    "espower-loader": "^0.11.0",
-    "intelli-espower-loader": "^0.7.0",
-    "mocha": "^2.2.5",
-    "power-assert": "^0.11.0"
+    "espower-loader": "^1.0.0",
+    "intelli-espower-loader": "^1.0.0",
+    "mocha": "^2.3.0",
+    "power-assert": "^1.0.0"
   }
 }
