@@ -56,6 +56,9 @@ function objectForEach(object, callback) {
   });
 }
 
-function isObject(x) {
-	return typeof x === 'object' && x !== null;
+function isObject(value) {
+  return (value !== null &&
+          typeof value !== 'undefined' &&
+          Object(value) === value &&
+          !Array.isArray(value));
 }
